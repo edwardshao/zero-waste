@@ -42,7 +42,7 @@ jobs:
         id: set-script-id
         if: "${{ github.event_name\t!= 'schedule' && env.SCRIPT_ID}}"
         run: |
-          echo '{"scriptId": "\"${{env.SCRIPT_ID}}"\""}' > .clasp.json
+          echo '{"scriptId": "${{env.SCRIPT_ID}}"}' > .clasp.json
           cat .clasp.json
         env:
           SCRIPT_ID: ${{secrets.SCRIPT_ID}}

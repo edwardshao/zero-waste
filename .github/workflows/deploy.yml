@@ -1,8 +1,7 @@
 name: Deploy Script
 on:
   push:
-    branches:
-      - main
+    branches: main
   schedule:
     - cron: "0 0 * * SUN"
   workflow_dispatch:
@@ -42,7 +41,9 @@ jobs:
       - name: Set scriptId in .clasp.json file
         id: set-script-id
         if: "${{ github.event_name\t!= 'schedule' && env.SCRIPT_ID}}"
-        run: jq '.scriptId = "${{env.SCRIPT_ID}}"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
+        run: |
+          echo '{"scriptId": "\"${{env.SCRIPT_ID}}"\""}' > .clasp.json
+          cat .clasp.json
         env:
           SCRIPT_ID: ${{secrets.SCRIPT_ID}}
       - name: Push script to scripts.google.com

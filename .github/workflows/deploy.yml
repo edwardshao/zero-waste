@@ -43,7 +43,6 @@ jobs:
         if: "${{ github.event_name\t!= 'schedule' && env.SCRIPT_ID}}"
         run: |
           echo '{"scriptId": "${{env.SCRIPT_ID}}"}' > .clasp.json
-          cat .clasp.json
         env:
           SCRIPT_ID: ${{secrets.SCRIPT_ID}}
       - name: Push script to scripts.google.com

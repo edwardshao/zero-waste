@@ -2,6 +2,8 @@ name: Deploy Script
 on:
   push:
     branches: main
+    paths-ignore:
+      - 'README.md'
   schedule:
     - cron: "0 0 * * SUN"
   workflow_dispatch:

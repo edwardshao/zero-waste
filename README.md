@@ -30,6 +30,7 @@ First verion. Use Google Spreadsheets and Apps Script to help us not to let thin
    ```
 7. Go to https://script.google.com/home. You should find your project and start your development locally.
 8. Afterward, you can use `clasp` to push/pull files to/from your project.
+
    Updates local files with Apps Script project
    ```
    clasp pull

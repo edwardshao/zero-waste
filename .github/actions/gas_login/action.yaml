@@ -1,0 +1,34 @@
+name: Login to Google Apps Script
+inputs:
+  clasprc_json:
+    description: 'JSON string for .clasprc.json'
+    required: true
+outputs:
+  latest_clasprc_json:
+    description: 'The latest .clasprc.json file contents'
+    value: ${{ steps.return-latest-clasprc.outputs.latest_clasprc }}
+runs:
+  using: "composite"
+  steps:
+    - name: Install clasp
+      id: install-clasp
+      shell: sh
+      run: |
+        sudo npm install @google/clasp@2.5.0 -g
+    - name: Write CLASPRC_JSON secret to .clasprc.json file
+      id: write-clasprc
+      shell: sh
+      run: |
+        cat << EOF > ~/.clasprc.json
+        ${{ inputs.clasprc_json }}
+        EOF
+    - name: Check clasp login status
+      id: clasp-login
+      shell: sh
+      run: |
+        clasp login --status
+    - name: Save current .clasprc.json contents to latest_clasprc_json output
+      id: return-latest-clasprc
+      shell: sh
+      run: |
+        echo "latest_clasprc=$(tr -d '\n\r' < ~/.clasprc.json)" >> $GITHUB_OUTPUT

@@ -33,7 +33,8 @@ function getZeroWasteItems(spreadsheet) {
       expiredTime: row[2],  // 過期時間
       count: row[3],        // 數量
       loc: row[4],          // 位置
-      comment: row[5]       // 備註
+      comment: row[5],      // 備註
+      owner: row[6]         // Owner
     };
     
     itemsArray.push(item);

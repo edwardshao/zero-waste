@@ -1,6 +1,6 @@
 function openSpreadsheet(fileName) {
   var files = DriveApp.getFilesByName(fileName);
-  
+
   if (!files.hasNext()) {
     Logger.log('找不到名為' + fileName + '的檔案');
     return;
@@ -12,18 +12,18 @@ function openSpreadsheet(fileName) {
   return spreadsheet;
 }
 
-function getZeroWasteItems(spreadsheet) {  
+function getZeroWasteItems(spreadsheet) {
   // get first sheet
   var sheet = spreadsheet.getActiveSheet();
-  
+
   // get range of data (ignore header)
   var dataRange = sheet.getRange(2, 1, sheet.getLastRow() - 1, sheet.getLastColumn());
 
   // get all values from range
   var data = dataRange.getValues();
-  
+
   var itemsArray = [];
-  
+
   for (var i = 0; i < data.length; i++) {
     var row = data[i];
 
@@ -36,14 +36,14 @@ function getZeroWasteItems(spreadsheet) {
       comment: row[5],      // 備註
       owner: row[6]         // Owner
     };
-    
+
     itemsArray.push(item);
   }
 
   return itemsArray;
 }
 
-function getFirstRow(spreadsheet) {  
+function getFirstRow(spreadsheet) {
   const sheet = spreadsheet.getActiveSheet();
 
   // get first row
@@ -52,12 +52,12 @@ function getFirstRow(spreadsheet) {
 }
 
 function getUTC8Date() {
-    const utcDate = new Date(new Date().toUTCString());
-    
-    const offsetInMs = 8 * 60 * 60 * 1000;
-    utcDate.setTime(utcDate.getTime() + offsetInMs);
+  const utcDate = new Date(new Date().toUTCString());
 
-    return utcDate;
+  const offsetInMs = 8 * 60 * 60 * 1000;
+  utcDate.setTime(utcDate.getTime() + offsetInMs);
+
+  return utcDate;
 }
 
 function getRemainingMillisecond(item, now) {
@@ -111,7 +111,7 @@ function genReport() {
   var expiredItems = [];
   var expiredAfterDaysItems = [];
 
-  items.forEach(function(item) {
+  items.forEach(function (item) {
     // ignore empty expiredTime item
     if (item.expiredTime == '')
       return;
@@ -133,6 +133,6 @@ function genReport() {
     Logger.log(EXPIRED_AFTER_DAYS + "天內過期");
     expiredAfterDaysItems.forEach(item => dumpItem(item));
   }
-  
+
   sendReport(expiredItems, expiredAfterDaysItems);
 }

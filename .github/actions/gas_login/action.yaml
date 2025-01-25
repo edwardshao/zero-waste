@@ -6,7 +6,7 @@ inputs:
 outputs:
   latest_clasprc_json:
     description: 'The latest .clasprc.json file contents'
-    value: ${{ steps.return-latest-clasprc.outputs.latest_clasprc }}
+    value: ${{ steps.return-latest-clasprc.outputs.masked_latest_clasprc }}
 runs:
   using: "composite"
   steps:
@@ -31,4 +31,6 @@ runs:
       id: return-latest-clasprc
       shell: sh
       run: |
-        echo "latest_clasprc=$(tr -d '\n\r' < ~/.clasprc.json)" >> $GITHUB_OUTPUT
+        latest_clasprc=$(tr -d '\n\r' < ~/.clasprc.json)
+        echo "::add-mask::$latest_clasprc"
+        echo "masked_latest_clasprc=$latest_clasprc" >> $GITHUB_OUTPUT

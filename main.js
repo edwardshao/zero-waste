@@ -76,15 +76,19 @@ function sendHtmlEmail(recipient, subject, htmlBody) {
   });
 }
 
-function sendReport(expiredItems, expiredAfterDaysItems) {
+function sendReport(expiredItems, expiredAfter30DaysItems, expiredAfter60DaysItems) {
   let tables = "";
 
   if (expiredItems.length > 0) {
     tables += composeHtmlTable("己過期", expiredItems);
   }
 
-  if (expiredAfterDaysItems.length > 0) {
-    tables += composeHtmlTable(EXPIRED_AFTER_DAYS + "天內過期", expiredAfterDaysItems);
+  if (expiredAfter30DaysItems.length > 0) {
+    tables += composeHtmlTable(EXPIRED_AFTER_30_DAYS + "天內過期", expiredAfter30DaysItems);
+  }
+
+  if (expiredAfter60DaysItems.length > 0) {
+    tables += composeHtmlTable(EXPIRED_AFTER_60_DAYS + "天內過期", expiredAfter60DaysItems);
   }
 
   if (tables.length > 0) {
@@ -109,7 +113,8 @@ function genReport() {
   const items = getZeroWasteItems(spreadsheet);
 
   var expiredItems = [];
-  var expiredAfterDaysItems = [];
+  var expiredAfter30DaysItems = [];
+  var expiredAfter60DaysItems = [];
 
   items.forEach(function (item) {
     // ignore empty expiredTime item
@@ -119,8 +124,10 @@ function genReport() {
     const remainingMS = getRemainingMillisecond(item, getUTC8Date());
     if (remainingMS < 0) {
       expiredItems.push(item);
-    } else if (remainingMS <= EXPIRED_AFTER_DAYS * 24 * 60 * 60 * 1000) {
-      expiredAfterDaysItems.push(item);
+    } else if (remainingMS <= EXPIRED_AFTER_30_DAYS * 24 * 60 * 60 * 1000) {
+      expiredAfter30DaysItems.push(item);
+    } else if (remainingMS <= EXPIRED_AFTER_60_DAYS * 24 * 60 * 60 * 1000) {
+      expiredAfter60DaysItems.push(item);
     }
   });
 
@@ -129,10 +136,15 @@ function genReport() {
     expiredItems.forEach(item => dumpItem(item));
   }
 
-  if (expiredAfterDaysItems.length > 0) {
-    Logger.log(EXPIRED_AFTER_DAYS + "天內過期");
-    expiredAfterDaysItems.forEach(item => dumpItem(item));
+  if (expiredAfter30DaysItems.length > 0) {
+    Logger.log(EXPIRED_AFTER_30_DAYS + "天內過期");
+    expiredAfter30DaysItems.forEach(item => dumpItem(item));
   }
 
-  sendReport(expiredItems, expiredAfterDaysItems);
+  if (expiredAfter60DaysItems.length > 0) {
+    Logger.log(EXPIRED_AFTER_60_DAYS + "天內過期");
+    expiredAfter60DaysItems.forEach(item => dumpItem(item));
+  }
+
+  sendReport(expiredItems, expiredAfter30DaysItems, expiredAfter60DaysItems);
 }

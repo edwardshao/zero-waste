@@ -84,11 +84,11 @@ function sendReport(expiredItems, expiredAfter30DaysItems, expiredAfter60DaysIte
   }
 
   if (expiredAfter30DaysItems.length > 0) {
-    tables += composeHtmlTable(EXPIRED_AFTER_30_DAYS + "天內過期", expiredAfter30DaysItems);
+    tables += composeHtmlTable(EXPIRED_AFTER_30_DAYS + "天後過期", expiredAfter30DaysItems);
   }
 
   if (expiredAfter60DaysItems.length > 0) {
-    tables += composeHtmlTable(EXPIRED_AFTER_60_DAYS + "天內過期", expiredAfter60DaysItems);
+    tables += composeHtmlTable(EXPIRED_AFTER_60_DAYS + "天後過期", expiredAfter60DaysItems);
   }
 
   if (tables.length > 0) {
@@ -137,12 +137,12 @@ function genReport() {
   }
 
   if (expiredAfter30DaysItems.length > 0) {
-    Logger.log(EXPIRED_AFTER_30_DAYS + "天內過期");
+    Logger.log(EXPIRED_AFTER_30_DAYS + "天後過期");
     expiredAfter30DaysItems.forEach(item => dumpItem(item));
   }
 
   if (expiredAfter60DaysItems.length > 0) {
-    Logger.log(EXPIRED_AFTER_60_DAYS + "天內過期");
+    Logger.log(EXPIRED_AFTER_60_DAYS + "天後過期");
     expiredAfter60DaysItems.forEach(item => dumpItem(item));
   }
 

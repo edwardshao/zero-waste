@@ -29,12 +29,11 @@ function getZeroWasteItems(spreadsheet) {
 
     var item = {
       name: row[0],         // 品項
-      addedTime: row[1],    // 加入時間
-      expiredTime: row[2],  // 過期時間
-      count: row[3],        // 數量
-      loc: row[4],          // 位置
-      comment: row[5],      // 備註
-      owner: row[6]         // Owner
+      expiredTime: row[1],  // 過期時間
+      count: row[2],        // 數量
+      loc: row[3],          // 位置
+      comment: row[4],      // 備註
+      owner: row[5]         // Owner
     };
 
     itemsArray.push(item);

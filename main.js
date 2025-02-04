@@ -92,7 +92,7 @@ function sendReport(expiredItems, expiredAfter30DaysItems, expiredAfter60DaysIte
 
   if (tables.length > 0) {
     const htmlBody = composeHtmlEmail(tables);
-    sendHtmlEmail(REPORT_RECIPIENTS_LIST.join(','), `${PROJECT_NAME}週報`, htmlBody);
+    sendHtmlEmail(getRecipientsList(), `${PROJECT_NAME}週報`, htmlBody);
   }
 }
 

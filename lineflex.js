@@ -63,9 +63,10 @@ function createBubbleContent(title, titleColor, items) {
                 {
                     type: "box",
                     layout: "vertical",
-                    contents: items.map(item => ({
+                    contents: items.map((item, index) => ({
                         type: "box",
                         layout: "horizontal",
+                        backgroundColor: index % 2 === 1 ? "#F5F5F5" : undefined,
                         contents: [
                             {
                                 type: "text",

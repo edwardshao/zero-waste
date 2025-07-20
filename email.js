@@ -1,15 +1,15 @@
 function composeHtmlTable(caption, items) {
   const numOfItems = items.length;
-  
+
   var tables = "";
-  const trBackground = [ "", 'style="background-color: #edeef2;"'];
+  const trBackground = ["", 'style="background-color: #edeef2;"'];
 
   items.forEach((item, index) => {
     const year = item.expiredTime.getFullYear();
     const month = (item.expiredTime.getMonth() + 1).toString().padStart(2, '0');
     const date = item.expiredTime.getDate().toString().padStart(2, '0');
     const formattedExpiredDate = `${year}/${month}/${date}`;
-    
+
     const htmlTrTemplate = `
     <tr ${trBackground[index % 2]}>
       <th style="border: 1px solid #a0a0a0; padding: 8px 10px;" scope="row">${item.name}</th>

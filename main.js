@@ -75,7 +75,7 @@ function sendHtmlEmail(recipient, subject, htmlBody) {
   });
 }
 
-function sendReport(expiredItems, expiredAfter30DaysItems, expiredAfter60DaysItems) {
+function sendEmailReport(expiredItems, expiredAfter30DaysItems, expiredAfter60DaysItems) {
   let tables = "";
 
   if (expiredItems.length > 0) {
@@ -94,6 +94,27 @@ function sendReport(expiredItems, expiredAfter30DaysItems, expiredAfter60DaysIte
     const htmlBody = composeHtmlEmail(tables);
     sendHtmlEmail(getRecipientsList(), `${PROJECT_NAME}週報`, htmlBody);
   }
+}
+
+function sendLineNotification(expiredItems, expiredAfter30DaysItems, expiredAfter60DaysItems) {
+  const flexMessage = buildLineFlexMessage(expiredItems, expiredAfter30DaysItems, expiredAfter60DaysItems);
+/*
+  console.log("Sending LINE notification with the following message:");
+  console.log(JSON.stringify(flexMessage));
+*/
+  const channelAccessToken = PropertiesService.getScriptProperties().getProperty("LINE_CH_ACCESS_TOKEN");
+  const targetId = PropertiesService.getScriptProperties().getProperty("LINE_TARGET_USER_ID");
+
+  const lineBot = new LineBotAPI().Client({
+    channelAccessToken: channelAccessToken
+  });
+
+  lineBot.pushMessage(targetId, flexMessage);
+}
+
+function sendReport(expiredItems, expiredAfter30DaysItems, expiredAfter60DaysItems) {
+  // sendEmailReport(expiredItems, expiredAfter30DaysItems, expiredAfter60DaysItems);
+  sendLineNotification(expiredItems, expiredAfter30DaysItems, expiredAfter60DaysItems);
 }
 
 function genReport() {

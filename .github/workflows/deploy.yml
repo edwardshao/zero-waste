@@ -27,3 +27,7 @@ jobs:
       - name: Push script to scripts.google.com
         id: clasp-push
         run: clasp push -f
+      - name: Deploy script
+        id: clasp-deploy
+        run: |
+          clasp update-deployment ${{ secrets.DEPLOYMENT_ID }}

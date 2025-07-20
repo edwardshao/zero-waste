@@ -98,10 +98,10 @@ function sendEmailReport(expiredItems, expiredAfter30DaysItems, expiredAfter60Da
 
 function sendLineNotification(expiredItems, expiredAfter30DaysItems, expiredAfter60DaysItems) {
   const flexMessage = buildLineFlexMessage(expiredItems, expiredAfter30DaysItems, expiredAfter60DaysItems);
-/*
-  console.log("Sending LINE notification with the following message:");
-  console.log(JSON.stringify(flexMessage));
-*/
+  /*
+    console.log("Sending LINE notification with the following message:");
+    console.log(JSON.stringify(flexMessage));
+  */
   const channelAccessToken = PropertiesService.getScriptProperties().getProperty("LINE_CH_ACCESS_TOKEN");
   const targetId = PropertiesService.getScriptProperties().getProperty("LINE_TARGET_USER_ID");
 

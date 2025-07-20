@@ -55,8 +55,7 @@ function createBubbleContent(title, titleColor, items) {
                                 }
                             ]
                         }
-                    ],
-                    spacing: "sm"
+                    ]
                 },
                 {
                     type: "separator"
@@ -92,12 +91,10 @@ function createBubbleContent(title, titleColor, items) {
                             }
                         ]
                     })),
-                    spacing: "sm",
                     margin: "xl"
                 }
             ],
-            spacing: "sm",
-            margin: "xxl"
+            spacing: "sm"
         },
         styles: {
             header: {

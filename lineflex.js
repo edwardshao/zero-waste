@@ -78,7 +78,12 @@ function createBubbleContent(title, titleColor, items) {
                             },
                             {
                                 type: "text",
-                                text: new Date(item.expiredTime).toISOString().split('T')[0].replace(/-/g, '/'),
+                                text: new Date(item.expiredTime).toLocaleDateString('zh-TW', {
+                                    timeZone: 'Asia/Taipei',
+                                    year: 'numeric',
+                                    month: '2-digit',
+                                    day: '2-digit'
+                                }),
                                 size: "sm",
                                 align: "center",
                                 color: "#555555"

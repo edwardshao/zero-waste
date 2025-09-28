@@ -30,4 +30,4 @@ jobs:
       - name: Deploy script
         id: clasp-deploy
         run: |
-          clasp update-deployment ${{ secrets.DEPLOYMENT_ID }}
+          clasp deploy -i ${{ secrets.DEPLOYMENT_ID }}
